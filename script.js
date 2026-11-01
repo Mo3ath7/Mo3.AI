@@ -1,4 +1,3 @@
-
 const form = document.getElementById("chatForm");
 const input = document.getElementById("promptInput");
 const messages = document.getElementById("messages");
@@ -9,7 +8,7 @@ const sidebar = document.getElementById("sidebar");
 const menuBtn = document.getElementById("menuBtn");
 const recentList = document.getElementById("recentList");
 
-let chatHistory = [];
+const WORKER_URL = "https://m03-ai.moathjazar8.workers.dev/";
 
 function addMessage(text, type) {
   const message = document.createElement("div");
@@ -22,25 +21,20 @@ function addMessage(text, type) {
 function showWelcome() {
   welcome.style.display = "block";
   messages.innerHTML = "";
-  chatHistory = [];
   recentList.innerHTML =
     '<div class="empty-recent">Your conversations will appear here.</div>';
 }
 
-function sendMessage(text) {
+async function sendMessage(text) {
   const prompt = text.trim();
-
   if (!prompt) return;
 
   welcome.style.display = "none";
-
   addMessage(prompt, "user");
-  chatHistory.push(prompt);
 
-  const reply = addMessage(
-    "I'm currently in preview mode. My interface is ready, but I still need an AI connection to generate real answers. Stay tuned!",
-    "assistant"
-  );
+  const reply = addMessage("Connecting to M03 AI...", "assistant");
+  input.value = "";
+  input.style.height = "auto";
 
   recentList.innerHTML = "";
   const recent = document.createElement("div");
@@ -50,26 +44,42 @@ function sendMessage(text) {
     : prompt;
   recentList.appendChild(recent);
 
-  input.value = "";
-  input.style.height = "auto";
+  try {
+    const response = await fetch(WORKER_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: prompt })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error || "Request failed");
+    }
+
+    reply.textContent = data.reply || "M03 AI received your message.";
+  } catch (error) {
+    reply.textContent =
+      "Couldn't connect to M03 AI. Please try again.";
+  }
 
   document.getElementById("chatArea").scrollTop =
     document.getElementById("chatArea").scrollHeight;
 }
 
-form.addEventListener("submit", function(event) {
+form.addEventListener("submit", event => {
   event.preventDefault();
   sendMessage(input.value);
 });
 
-input.addEventListener("keydown", function(event) {
+input.addEventListener("keydown", event => {
   if (event.key === "Enter" && !event.shiftKey) {
     event.preventDefault();
     form.requestSubmit();
   }
 });
 
-input.addEventListener("input", function() {
+input.addEventListener("input", () => {
   input.style.height = "auto";
   input.style.height = Math.min(input.scrollHeight, 120) + "px";
 });
