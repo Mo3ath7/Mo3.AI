@@ -59,8 +59,7 @@ async function sendMessage(text) {
 
     reply.textContent = data.reply || "M03 AI received your message.";
   } catch (error) {
-    reply.textContent =
-      "Couldn't connect to M03 AI. Please try again.";
+    reply.textContent = "Error: " + error.message;
   }
 
   document.getElementById("chatArea").scrollTop =
