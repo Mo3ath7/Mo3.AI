@@ -1,0 +1,94 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080b09">
+  <title>M03 AI — Your creative assistant</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="ambient ambient-one"></div>
+  <div class="ambient ambient-two"></div>
+
+  <main class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#">
+        <span class="brand-mark">M<span>03</span></span>
+        <span class="brand-name">M03 <b>AI</b></span>
+      </a>
+
+      <button class="new-chat" id="newChat"><span>＋</span> New chat</button>
+      <div class="side-label">WORKSPACE</div>
+      <button class="side-link active"><span>◈</span> Assistant</button>
+      <button class="side-link" id="exploreBtn"><span>✧</span> Explore</button>
+
+      <div class="side-label recent-label">RECENT CHATS</div>
+      <div class="recent-list" id="recentList">
+        <div class="empty-recent">Your conversations will appear here.</div>
+      </div>
+
+      <div class="sidebar-bottom">
+        <div class="profile-avatar">M</div>
+        <div><strong>Mo3ath</strong><small>Personal workspace</small></div>
+        <span class="status-dot"></span>
+      </div>
+    </aside>
+
+    <section class="main-panel">
+      <header class="topbar">
+        <button class="mobile-menu" id="menuBtn">☰</button>
+        <div class="topbar-tag"><span class="live-dot"></span> PERSONAL AI WORKSPACE</div>
+        <button class="top-action" id="clearBtn">Clear chat</button>
+      </header>
+
+      <section class="chat-area" id="chatArea">
+        <div class="welcome" id="welcome">
+          <div class="orb-wrap">
+            <div class="orb-ring ring-a"></div>
+            <div class="orb-ring ring-b"></div>
+            <div class="orb-core">M<span>03</span></div>
+            <i class="spark spark-a"></i>
+            <i class="spark spark-b"></i>
+            <i class="spark spark-c"></i>
+          </div>
+
+          <div class="eyebrow"><span></span> YOUR AI, YOUR WAY</div>
+          <h1>Ideas start here.<br><em>Let's make them real.</em></h1>
+          <p class="welcome-copy">Meet M03 AI — a space to think, create, learn, and turn your next big idea into something real.</p>
+
+          <div class="suggestions">
+            <button class="suggestion" data-prompt="Give me 5 creative project ideas">
+              <span>✧</span><b>Brainstorm ideas</b>
+              <small>Find your next big thing</small><i>↗</i>
+            </button>
+            <button class="suggestion" data-prompt="Teach me something interesting in a simple way">
+              <span>⌘</span><b>Learn something</b>
+              <small>Make complex things simple</small><i>↗</i>
+            </button>
+            <button class="suggestion" data-prompt="Help me write a plan for a new project">
+              <span>▤</span><b>Plan a project</b>
+              <small>Turn thoughts into action</small><i>↗</i>
+            </button>
+          </div>
+        </div>
+
+        <div class="messages" id="messages" aria-live="polite"></div>
+      </section>
+
+      <footer class="composer-wrap">
+        <form class="composer" id="chatForm">
+          <textarea id="promptInput" rows="1" placeholder="Message M03 AI..." aria-label="Message M03 AI"></textarea>
+          <button class="send-btn" type="submit" aria-label="Send message">↑</button>
+        </form>
+        <div class="disclaimer">M03 AI preview · Connect an AI service to enable real AI responses.</div>
+      </footer>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
